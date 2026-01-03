@@ -5,7 +5,9 @@ import {
   TrendingUp, 
   Home, 
   Target, 
-  BrainCircuit
+  BrainCircuit,
+  Mail,
+  User
 } from 'lucide-react';
 import { CalculatorType } from './types.ts';
 import CompoundInterestCalc from './components/CompoundInterestCalc.tsx';
@@ -77,8 +79,23 @@ const App: React.FC = () => {
           {activeTab === CalculatorType.SAVINGS_GOAL && <SavingsGoalCalc />}
         </div>
         
-        <footer className="mt-20 border-t border-slate-200 pt-8 pb-4 text-center text-slate-400 text-sm">
-          &copy; {new Date().getFullYear()} FinanSmart - Sua saúde financeira em primeiro lugar.
+        <footer className="mt-20 border-t border-slate-200 pt-8 pb-10 text-center space-y-4">
+          <p className="text-slate-400 text-sm">
+            &copy; {new Date().getFullYear()} FinanSmart - Sua saúde financeira em primeiro lugar.
+          </p>
+          <div className="flex flex-col items-center gap-2 text-slate-500 text-sm">
+            <div className="flex items-center gap-2">
+              <User size={14} className="text-indigo-600" />
+              <span>Desenvolvido por <span className="font-semibold text-slate-800">Eduardo Amaral</span></span>
+            </div>
+            <a 
+              href="mailto:aeduardoamaral@gmail.com" 
+              className="flex items-center gap-2 hover:text-indigo-600 transition-colors group"
+            >
+              <Mail size={14} className="group-hover:scale-110 transition-transform" />
+              <span className="border-b border-transparent group-hover:border-indigo-600">aeduardoamaral@gmail.com</span>
+            </a>
+          </div>
         </footer>
       </main>
     </div>
