@@ -13,13 +13,11 @@ const SavingsGoalCalc: React.FC = () => {
   });
 
   const results = useMemo(() => {
-    const r = data.annualRate / 100 / 12; // Monthly rate
+    const r = data.annualRate / 100 / 12;
     const n = data.timeframeMonths;
     const fv = data.targetAmount;
     const pv = data.currentSavings;
 
-    // PMT formula: PMT = (FV - PV * (1 + r)^n) * r / ((1 + r)^n - 1)
-    
     let requiredMonthly: number;
     if (r === 0) {
       requiredMonthly = (fv - pv) / n;
@@ -38,115 +36,109 @@ const SavingsGoalCalc: React.FC = () => {
     new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
 
   const aiContext = `Simulação de Meta de Economia:
-    Valor Desejado: ${formatCurrency(data.targetAmount)}
+    Meta Alvo: ${formatCurrency(data.targetAmount)}
     Saldo Atual: ${formatCurrency(data.currentSavings)}
-    Rentabilidade Esperada: ${data.annualRate}% ao ano
-    Tempo disponível: ${data.timeframeMonths} meses
+    Rentabilidade Esperada: ${data.annualRate}% aa
+    Prazo: ${data.timeframeMonths} meses
     Investimento Mensal Necessário: ${formatCurrency(results.requiredMonthly)}`;
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-8">
       {/* Inputs */}
-      <div className="lg:col-span-5 space-y-6">
-        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-          <h3 className="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
-            <Target size={20} className="text-indigo-600" /> Qual sua meta?
+      <div className="lg:col-span-5 space-y-5">
+        <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+          <h3 className="text-md font-bold text-slate-800 mb-5 flex items-center gap-2">
+            <Target size={20} className="text-indigo-600" /> Planejamento de Metas
           </h3>
           
-          <div className="space-y-5">
+          <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-600 mb-2">Quanto você quer ter?</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Quanto você quer atingir?</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">R$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">R$</span>
                 <input 
                   type="number"
                   value={data.targetAmount}
                   onChange={(e) => setData({...data, targetAmount: Number(e.target.value)})}
-                  className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-black focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-slate-600 mb-2">Quanto você já tem poupado?</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Já possui quanto guardado?</label>
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">R$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">R$</span>
                 <input 
                   type="number"
                   value={data.currentSavings}
                   onChange={(e) => setData({...data, currentSavings: Number(e.target.value)})}
-                  className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-black focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
+                  className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
                 />
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="block text-sm font-medium text-slate-600 mb-2">Rentabilidade (%)</label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">%</span>
-                  <input 
-                    type="number"
-                    step="0.1"
-                    value={data.annualRate}
-                    onChange={(e) => setData({...data, annualRate: Number(e.target.value)})}
-                    className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-black focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                  />
-                </div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Rendimento (%)</label>
+                <input 
+                  type="number"
+                  step="0.1"
+                  value={data.annualRate}
+                  onChange={(e) => setData({...data, annualRate: Number(e.target.value)})}
+                  className="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-600 mb-2">Tempo (Meses)</label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">#</span>
-                  <input 
-                    type="number"
-                    value={data.timeframeMonths}
-                    onChange={(e) => setData({...data, timeframeMonths: Number(e.target.value)})}
-                    className="w-full pl-10 pr-4 py-2 rounded-xl border border-slate-200 bg-white text-black focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
-                  />
-                </div>
+                <label className="block text-xs font-bold text-slate-500 uppercase mb-1.5">Meses</label>
+                <input 
+                  type="number"
+                  value={data.timeframeMonths}
+                  onChange={(e) => setData({...data, timeframeMonths: Number(e.target.value)})}
+                  className="w-full px-4 py-2 rounded-xl border border-slate-200 bg-white text-sm focus:ring-2 focus:ring-indigo-500 outline-none transition-all"
+                />
               </div>
             </div>
           </div>
         </div>
 
-        <div className="bg-emerald-600 p-8 rounded-2xl text-white shadow-xl shadow-emerald-100 relative overflow-hidden">
-          <TrendingUp className="absolute -right-8 -bottom-8 text-emerald-500 opacity-20" size={180} />
+        <div className="bg-emerald-600 p-6 rounded-2xl text-white shadow-xl relative overflow-hidden">
+          <TrendingUp className="absolute -right-6 -bottom-6 text-emerald-500 opacity-20" size={130} />
           <div className="relative z-10">
-            <span className="text-emerald-100 text-sm font-medium uppercase tracking-widest block mb-2">Economia Mensal Necessária</span>
-            <span className="text-4xl font-bold">{formatCurrency(results.requiredMonthly)}</span>
-            <p className="mt-4 text-emerald-50 leading-relaxed text-sm">
-              Para atingir sua meta de <span className="font-bold">{formatCurrency(data.targetAmount)}</span> em <span className="font-bold">{data.timeframeMonths} meses</span>, você precisa investir este valor mensalmente.
+            <span className="text-emerald-100 text-[11px] font-bold uppercase tracking-widest block mb-2">Aporte Mensal Necessário</span>
+            <span className="text-3xl font-bold">{formatCurrency(results.requiredMonthly)}</span>
+            <p className="mt-3 text-emerald-50 text-[12px] leading-relaxed">
+              Valor aproximado para chegar aos <strong>{formatCurrency(data.targetAmount)}</strong> no prazo desejado.
             </p>
           </div>
         </div>
       </div>
 
       {/* Visuals / Comparison */}
-      <div className="lg:col-span-7 flex flex-col gap-6">
-        <div className="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-center">
-           <h4 className="text-slate-800 font-bold mb-8 flex items-center gap-2">
-             <Calendar className="text-indigo-600" /> Linha do Tempo da Conquista
+      <div className="lg:col-span-7 flex flex-col gap-5">
+        <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex-1 flex flex-col justify-center min-h-[240px]">
+           <h4 className="text-slate-800 text-sm font-bold mb-8 flex items-center gap-2">
+             <Calendar size={18} className="text-indigo-600" /> Jornada Financeira
            </h4>
            
-           <div className="space-y-10">
+           <div className="space-y-8">
              <div className="flex items-start gap-4">
-               <div className="bg-indigo-100 p-3 rounded-full text-indigo-600 shrink-0">
-                 <ArrowRightCircle size={24} />
+               <div className="bg-indigo-100 p-2.5 rounded-full text-indigo-600 shrink-0">
+                 <ArrowRightCircle size={20} />
                </div>
                <div>
-                 <span className="text-slate-500 text-xs uppercase font-bold">Hoje</span>
-                 <p className="text-slate-900 font-semibold text-lg">Início com {formatCurrency(data.currentSavings)}</p>
+                 <span className="text-slate-400 text-[11px] uppercase font-bold">Início Hoje</span>
+                 <p className="text-slate-900 font-semibold text-md">Ponto de partida: {formatCurrency(data.currentSavings)}</p>
                </div>
              </div>
 
              <div className="flex items-start gap-4">
-               <div className="bg-emerald-100 p-3 rounded-full text-emerald-600 shrink-0">
-                 <Target size={24} />
+               <div className="bg-emerald-100 p-2.5 rounded-full text-emerald-600 shrink-0">
+                 <Target size={20} />
                </div>
                <div>
-                 <span className="text-slate-500 text-xs uppercase font-bold">Daqui a {data.timeframeMonths} meses</span>
-                 <p className="text-slate-900 font-semibold text-lg">Meta de {formatCurrency(data.targetAmount)} Atingida!</p>
+                 <span className="text-slate-400 text-[11px] uppercase font-bold">Em {data.timeframeMonths} meses</span>
+                 <p className="text-slate-900 font-semibold text-md">Meta alcançada: {formatCurrency(data.targetAmount)}!</p>
                </div>
              </div>
            </div>

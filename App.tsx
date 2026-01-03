@@ -24,52 +24,52 @@ const App: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-slate-50 text-slate-900">
+    <div className="h-screen flex flex-col md:flex-row bg-slate-50 text-slate-900 overflow-hidden">
       {/* Sidebar - Desktop */}
-      <aside className="w-full md:w-72 bg-white border-r border-slate-200 p-6 flex flex-col gap-8">
-        <div className="flex items-center gap-3">
+      <aside className="w-full md:w-64 bg-white border-r border-slate-200 p-5 flex flex-col gap-5">
+        <div className="flex items-center gap-2 mb-1">
           <div className="bg-indigo-600 p-2 rounded-lg text-white">
-            <Calculator size={24} />
+            <Calculator size={22} />
           </div>
           <h1 className="text-xl font-bold tracking-tight text-slate-800">FinanSmart</h1>
         </div>
 
-        <nav className="flex flex-col gap-2">
+        <nav className="flex flex-col gap-1.5">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm ${
                 activeTab === tab.id 
                 ? 'bg-indigo-50 text-indigo-700 font-semibold' 
                 : 'text-slate-500 hover:bg-slate-100'
               }`}
             >
-              <tab.icon size={20} />
+              <tab.icon size={19} />
               <span>{tab.name}</span>
             </button>
           ))}
         </nav>
 
-        <div className="mt-auto bg-slate-100 rounded-2xl p-4">
-          <div className="flex items-center gap-2 mb-2 text-indigo-600">
-            <BrainCircuit size={18} />
-            <span className="text-sm font-semibold uppercase tracking-wider">IA Insights</span>
+        <div className="mt-auto bg-slate-100 rounded-xl p-4 border border-slate-200">
+          <div className="flex items-center gap-2 mb-1.5 text-indigo-600">
+            <BrainCircuit size={17} />
+            <span className="text-xs font-bold uppercase tracking-wider">IA Insights</span>
           </div>
-          <p className="text-xs text-slate-500 leading-relaxed">
-            Nossa IA analisa seus cálculos para oferecer estratégias personalizadas de investimento e economia.
+          <p className="text-[11px] text-slate-500 leading-normal">
+            Análise estratégica inteligente para suas finanças.
           </p>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-4 md:p-10">
-        <header className="mb-10 max-w-5xl mx-auto">
-          <h2 className="text-3xl font-bold text-slate-900 mb-2">
+      <main className="flex-1 overflow-y-auto p-5 md:p-8">
+        <header className="mb-6 max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-900 leading-tight">
             {tabs.find(t => t.id === activeTab)?.name}
           </h2>
-          <p className="text-slate-500">
-            Simule seus projetos financeiros com precisão e receba orientações estratégicas.
+          <p className="text-sm text-slate-500 mt-1">
+            Simulações precisas e orientações estratégicas.
           </p>
         </header>
 
@@ -79,11 +79,11 @@ const App: React.FC = () => {
           {activeTab === CalculatorType.SAVINGS_GOAL && <SavingsGoalCalc />}
         </div>
         
-        <footer className="mt-20 border-t border-slate-200 pt-8 pb-10 text-center space-y-4">
-          <p className="text-slate-400 text-sm">
-            &copy; {new Date().getFullYear()} FinanSmart - Sua saúde financeira em primeiro lugar.
+        <footer className="mt-12 border-t border-slate-200 pt-6 pb-8 text-center space-y-3">
+          <p className="text-slate-400 text-[11px]">
+            &copy; {new Date().getFullYear()} FinanSmart
           </p>
-          <div className="flex flex-col items-center gap-2 text-slate-500 text-sm">
+          <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-slate-500 text-[12px]">
             <div className="flex items-center gap-2">
               <User size={14} className="text-indigo-600" />
               <span>Desenvolvido por <span className="font-semibold text-slate-800">Eduardo Amaral</span></span>
