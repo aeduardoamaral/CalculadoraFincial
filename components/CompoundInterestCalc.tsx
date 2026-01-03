@@ -1,8 +1,6 @@
 
 import React, { useState, useMemo } from 'react';
 import { 
-  LineChart, 
-  Line, 
   XAxis, 
   YAxis, 
   CartesianGrid, 
@@ -11,9 +9,9 @@ import {
   AreaChart, 
   Area 
 } from 'recharts';
-import { DollarSign, Percent, Calendar, PlusCircle } from 'lucide-react';
-import { InvestmentData, ChartDataPoint } from '../types';
-import AiInsights from './AiInsights';
+import { PlusCircle } from 'lucide-react';
+import { InvestmentData, ChartDataPoint } from '../types.ts';
+import AiInsights from './AiInsights.tsx';
 
 const CompoundInterestCalc: React.FC = () => {
   const [data, setData] = useState<InvestmentData>({
@@ -167,7 +165,7 @@ const CompoundInterestCalc: React.FC = () => {
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-              <XAxis dataKey="period" label={{ value: 'Anos', position: 'insideBottomRight', offset: -5 }} stroke="#94a3b8" />
+              <XAxis dataKey="period" stroke="#94a3b8" />
               <YAxis tickFormatter={(val) => `R$${val/1000}k`} stroke="#94a3b8" />
               <Tooltip 
                 formatter={(value: number) => formatCurrency(value)}

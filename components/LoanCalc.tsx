@@ -1,11 +1,6 @@
 
 import React, { useState, useMemo } from 'react';
 import { 
-  BarChart, 
-  Bar, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
   Tooltip, 
   Legend, 
   ResponsiveContainer, 
@@ -13,9 +8,9 @@ import {
   PieChart,
   Pie
 } from 'recharts';
-import { Home, Percent, Calendar, CheckCircle2 } from 'lucide-react';
-import { LoanData } from '../types';
-import AiInsights from './AiInsights';
+import { Home } from 'lucide-react';
+import { LoanData } from '../types.ts';
+import AiInsights from './AiInsights.tsx';
 
 const LoanCalc: React.FC = () => {
   const [data, setData] = useState<LoanData>({
@@ -153,16 +148,6 @@ const LoanCalc: React.FC = () => {
                 <Legend verticalAlign="bottom" height={36}/>
               </PieChart>
             </ResponsiveContainer>
-          </div>
-          <div className="grid grid-cols-2 gap-4 w-full mt-6">
-            <div className="p-4 bg-slate-50 rounded-xl">
-              <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Comprometimento</span>
-              <p className="text-slate-800 font-medium">Este valor representa {(results.totalInterest / results.loanAmount * 100).toFixed(1)}% do capital inicial em juros.</p>
-            </div>
-            <div className="p-4 bg-slate-50 rounded-xl">
-              <span className="text-xs text-slate-500 uppercase font-bold tracking-wider">Dica</span>
-              <p className="text-slate-800 font-medium">Amortizar parcelas extras pode reduzir drasticamente o total pago.</p>
-            </div>
           </div>
         </div>
 

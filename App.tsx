@@ -1,19 +1,16 @@
 
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 import { 
   Calculator, 
   TrendingUp, 
   Home, 
   Target, 
-  BrainCircuit,
-  Info,
-  DollarSign,
-  ChevronRight
+  BrainCircuit
 } from 'lucide-react';
-import { CalculatorType } from './types';
-import CompoundInterestCalc from './components/CompoundInterestCalc';
-import LoanCalc from './components/LoanCalc';
-import SavingsGoalCalc from './components/SavingsGoalCalc';
+import { CalculatorType } from './types.ts';
+import CompoundInterestCalc from './components/CompoundInterestCalc.tsx';
+import LoanCalc from './components/LoanCalc.tsx';
+import SavingsGoalCalc from './components/SavingsGoalCalc.tsx';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<CalculatorType>(CalculatorType.COMPOUND_INTEREST);

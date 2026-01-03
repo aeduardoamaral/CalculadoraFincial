@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Sparkles, Loader2, RefreshCcw } from 'lucide-react';
-import { getFinancialInsights } from '../services/gemini';
+import { getFinancialInsights } from '../services/gemini.ts';
 
 interface AiInsightsProps {
   context: string;

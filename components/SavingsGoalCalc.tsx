@@ -1,8 +1,8 @@
 
 import React, { useState, useMemo } from 'react';
 import { Target, TrendingUp, Calendar, ArrowRightCircle } from 'lucide-react';
-import { SavingsGoalData } from '../types';
-import AiInsights from './AiInsights';
+import { SavingsGoalData } from '../types.ts';
+import AiInsights from './AiInsights.tsx';
 
 const SavingsGoalCalc: React.FC = () => {
   const [data, setData] = useState<SavingsGoalData>({
@@ -18,8 +18,7 @@ const SavingsGoalCalc: React.FC = () => {
     const fv = data.targetAmount;
     const pv = data.currentSavings;
 
-    // PMT for FV of an annuity with a present value:
-    // PMT = (FV - PV * (1 + r)^n) * r / ((1 + r)^n - 1)
+    // PMT formula: PMT = (FV - PV * (1 + r)^n) * r / ((1 + r)^n - 1)
     
     let requiredMonthly: number;
     if (r === 0) {
@@ -150,22 +149,6 @@ const SavingsGoalCalc: React.FC = () => {
                  <p className="text-slate-900 font-semibold text-lg">Meta de {formatCurrency(data.targetAmount)} Atingida!</p>
                </div>
              </div>
-           </div>
-
-           <div className="mt-12 p-6 bg-slate-50 rounded-2xl border border-slate-100">
-             <div className="flex items-center justify-between mb-4">
-                <span className="text-sm font-medium text-slate-600">Esforço Total de Poupança</span>
-                <span className="text-sm font-bold text-slate-800">{formatCurrency(results.requiredMonthly * data.timeframeMonths)}</span>
-             </div>
-             <div className="w-full bg-slate-200 rounded-full h-2">
-                <div 
-                  className="bg-indigo-600 h-2 rounded-full transition-all duration-1000" 
-                  style={{ width: `${Math.min(100, (results.requiredMonthly * data.timeframeMonths / data.targetAmount) * 100)}%` }}
-                ></div>
-             </div>
-             <p className="text-xs text-slate-400 mt-3">
-               A diferença entre o esforço de poupança e o valor final é o "lucro" gerado pelos seus investimentos (Juros).
-             </p>
            </div>
         </div>
 
